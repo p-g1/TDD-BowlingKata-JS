@@ -1,0 +1,16 @@
+{
+  "name": "js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "BowlingKata.js",
+  "scripts": {
+    "jest": "jest",
+    "jest:coverage": "jest --coverage"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^24.6.0",
+    "jest-each": "^24.7.1"
+  }
+}
