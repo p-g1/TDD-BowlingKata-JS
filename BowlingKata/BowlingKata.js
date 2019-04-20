@@ -5,14 +5,6 @@ exports.ScoreCalculator = scoreboard => {
       return 0;
   }
 
-  if (splitScoreBoard[0].charAt(0) == 5) {
-    return 5;
-  }
-
-  if (splitScoreBoard[0].charAt(0) == 1) {
-    return 1;
-  }
-
-  return 9;
+  return +splitScoreBoard[0].charAt(0);
 
 };
