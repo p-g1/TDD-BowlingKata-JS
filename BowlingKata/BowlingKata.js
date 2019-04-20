@@ -5,6 +5,7 @@ exports.ScoreCalculator = scoreboard => {
       return 0;
   }
 
-  return +splitScoreBoard[0].charAt(0);
-
+  return splitScoreBoard[0].charAt(0) === "-" ?
+                               +splitScoreBoard[0].charAt(1) :
+                               +splitScoreBoard[0].charAt(0);
 };
