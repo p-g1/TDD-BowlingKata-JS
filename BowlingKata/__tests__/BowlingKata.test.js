@@ -11,6 +11,9 @@ describe("BowlingKata", () => {
     ${"-2|--|--|--|--|--|--|--|--|--||--"} | ${2}
     ${"-6|--|--|--|--|--|--|--|--|--||--"} | ${6}
     ${"-8|--|--|--|--|--|--|--|--|--||--"} | ${8}
+    ${"22|--|--|--|--|--|--|--|--|--||--"} | ${4}
+    ${"16|--|--|--|--|--|--|--|--|--||--"} | ${7}
+    ${"45|--|--|--|--|--|--|--|--|--||--"} | ${9}
   `("should calculate score of $expectedResult from $input", ({ input, expectedResult }) => {
     expect(Bowling.ScoreCalculator(input)).toBe(expectedResult);
   });
