@@ -1,6 +1,8 @@
 exports.ScoreCalculator = scoreboard => {
-  if (scoreboard.charAt(3) == "1") {
-    return 1;
+  let fourthChar = scoreboard.charAt(3);
+
+  if (fourthChar != "-") {
+    return +fourthChar;
   }
 
   return scoreboard
