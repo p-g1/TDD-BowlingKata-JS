@@ -3,7 +3,7 @@ require("jest-each");
 
 describe("BowlingKata", () => {
   test.each`
-    input   | expectedResult
+    input                                  | expectedResult
     ${"--|--|--|--|--|--|--|--|--|--||--"} | ${0}
     ${"1-|--|--|--|--|--|--|--|--|--||--"} | ${1}
     ${"5-|--|--|--|--|--|--|--|--|--||--"} | ${5}
@@ -14,7 +14,11 @@ describe("BowlingKata", () => {
     ${"22|--|--|--|--|--|--|--|--|--||--"} | ${4}
     ${"16|--|--|--|--|--|--|--|--|--||--"} | ${7}
     ${"45|--|--|--|--|--|--|--|--|--||--"} | ${9}
-  `("should calculate score of $expectedResult from $input", ({ input, expectedResult }) => {
-    expect(Bowling.ScoreCalculator(input)).toBe(expectedResult);
-  });
+    ${"--|1-|--|--|--|--|--|--|--|--||--"} | ${1}
+  `(
+    "should calculate score of $expectedResult from $input",
+    ({ input, expectedResult }) => {
+      expect(Bowling.ScoreCalculator(input)).toBe(expectedResult);
+    }
+  );
 });
