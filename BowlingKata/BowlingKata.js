@@ -1,15 +1,11 @@
 exports.ScoreCalculator = scoreboard => {
-  let fourthChar = scoreboard.charAt(3);
 
-  if (fourthChar != "-") {
-    return +fourthChar;
-  }
-
-  return scoreboard
+   return scoreboard
     .replaceDoublePipeWithSingle()
     .replaceHyphensWithZeros()
     .split("|")
-    .charactersToIntsInArray()[0]
+    .charactersToIntsInArray()
+    .map(subArray => subArray.reduce((a,b)=> a+b))
     .reduce((a, b) => a + b);
 };
 
