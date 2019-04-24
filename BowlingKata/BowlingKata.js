@@ -1,10 +1,13 @@
 exports.ScoreCalculator = scoreboard => {
 
-   return scoreboard
+  // scoreboard = scoreboard.replace(/\//g, "10");
+  
+    return scoreboard
     .replaceDoublePipeWithSingle()
     .replaceHyphensWithZeros()
     .split("|")
     .charactersToIntsInArray()
+    .handleSpecialCharacters()
     .map(subArray => subArray.reduce((a,b)=> a+b))
     .reduce((a, b) => a + b);
 };
@@ -18,5 +21,9 @@ String.prototype.replaceHyphensWithZeros = function() {
 };
 
 Array.prototype.charactersToIntsInArray = function() {
-  return this.map(arrayElement => arrayElement.split("").map(char => +char));
+  return this.map(arrayElement => arrayElement.split("").map(char => char == "/" ? char : char*1));
 };
+
+Array.prototype.handleSpecialCharacters = function() {
+  return this.map((arrayElement) => arrayElement.map(char => char == "/" ? 10: char)); 
+}
