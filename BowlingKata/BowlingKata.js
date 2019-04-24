@@ -4,7 +4,7 @@ exports.ScoreCalculator = scoreboard => {
     .replaceDoublePipeWithSingle()
     .replaceHyphensWithZeros()
     .split("|")
-    .charactersToIntsInArray()
+    .convertCharsToIntsInArray()
     .handleSpecialCharacters()
     .map(subArray => subArray.reduce((a,b)=> a+b))
     .reduce((a, b) => a + b);
@@ -18,14 +18,14 @@ String.prototype.replaceHyphensWithZeros = function() {
   return this.replace(/\-/g, "0");
 };
 
-Array.prototype.charactersToIntsInArray = function() {
+Array.prototype.convertCharsToIntsInArray = function() {
   return this.map(arrayElement => arrayElement
     .split("")
     .map(char => char == "/" || char == "X" ? char : char*1));
 };
 
 Array.prototype.handleSpecialCharacters = function() {
-  for (var i = 0; i < this.length; i++) {
+  for (var i = this.length-1; i >= 0; i--) {
     if (this[i][1] ==  "/") {
       this[i][1] = 10 - this[i][0] + this[i+1][0];
     } 
