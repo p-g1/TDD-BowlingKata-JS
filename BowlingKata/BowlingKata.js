@@ -25,5 +25,10 @@ Array.prototype.charactersToIntsInArray = function() {
 };
 
 Array.prototype.handleSpecialCharacters = function() {
-  return this.map((arrayElement) => arrayElement.map(char => char == "/" ? 10: char)); 
+  for (var i = 0; i < this.length; i++) {
+    if (this[i][1] ==  "/") {
+      this[i][1] = 10 - this[i][0] + this[i+1][0];
+    } 
+  }
+  return this;
 }
