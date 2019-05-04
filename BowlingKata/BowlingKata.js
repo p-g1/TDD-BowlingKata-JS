@@ -18,12 +18,13 @@ String.prototype.replaceHyphensWithZeros = function() {
 };
 
 Array.prototype.convertCharsToIntsInArray = function() {
-  return this.map(arrayElement => arrayElement
-    .split("")
-    .map((char, i) => 
-      char == "/" ? 10 - Number(i-1):
-      char == "X" ? 10 :
-      Number(char)));
+  var temp = this.map(arrayElement => arrayElement
+    .split(""));
+    for (var i = 0; i < temp.length; i++) {
+      temp[i][0] == "X" ? temp[i][0] = 10 : temp[i][0] = Number(temp[i][0]);
+      temp[i][1] == "/" ? temp[i][1] = 10 - Number(temp[i][0]) : temp[i][1] = Number(temp[i][1]);
+    } 
+      return temp;
 };
 
 Array.prototype.handleSpecialCharacters = function() {
