@@ -5,7 +5,7 @@ exports.ScoreCalculator = scoreboard => {
     .replaceHyphensWithZeros()
     .split("|")
     .convertCharsToIntsInArray()
-    .handleSpecialCharacters()
+    .handleSpareCharacters()
     .map(subArray => subArray.reduce((a,b)=> a+b))
     .reduce((a, b) => a + b);
 };
@@ -21,17 +21,24 @@ String.prototype.replaceHyphensWithZeros = function() {
 Array.prototype.convertCharsToIntsInArray = function() {
   return this.map(arrayElement => arrayElement
     .split("")
-    .map(char => char == "/" || char == "X" ? char : char*1));
+    .map((char, i) => 
+      char == "/" ? 10 - Number(i-1):
+      char == "X" ? 10 :
+      Number(char)));
 };
 
-Array.prototype.handleSpecialCharacters = function() {
-  for (var i = this.length-1; i >= 0; i--) {
-    if (this[i][1] ==  "/") {
-      this[i][1] = 10 - this[i][0] + this[i+1][0];
-    } 
-    if (this[i][0] ==  "X") {
-      this[i][0] = 10 + this[i+1][0] + this[i+1][1];
-    } 
+Array.prototype.handleSpareCharacters = function() {
+  for (var i = 0; i < this.length; i++) {
+    if (this[i][0] === 10) {
+      this[i][0] += this[i+1][0] + this[i+1][1]; 
+    }
+    else if (this[i].reduce((a,b)=>a+b) === 10) {
+      this[i][1] += this[i+1][0];
+    }
   }
   return this;
-}
+  }
+
+// function isSpare() {
+//   return self.rolls[frameIndex] + self.rolls[frameIndex + 1] === 10;
+// }
