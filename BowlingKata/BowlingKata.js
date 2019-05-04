@@ -29,6 +29,8 @@ Array.prototype.convertCharsToIntsInArray = function() {
 Array.prototype.handleSpecialCharacters = function() {
   for (var i = 0; i < this.length; i++) {
     if (this[i][0] === 10) {
+      this[i+1][0] === 10 ?
+      this[i][0] += this[i+1][0] + this[i+2][0]:
       this[i][0] += this[i+1][0] + this[i+1][1]; 
     }
     else if (this[i].reduce((a,b)=>a+b) === 10) {
