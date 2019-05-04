@@ -4,8 +4,8 @@ exports.ScoreCalculator = scoreboard => {
     .replaceHyphensWithZeros()
     .split("|")
     .splitIntoSubArrays()
-    .handleStrikes()
-    .handleSpares()
+    .handleStrikeCharacters()
+    .handleSpareCharacters()
     .convertCharsToIntsInArray()
     .handleSpecialCharacterScoring()
     .sumSubArrays()
@@ -25,7 +25,7 @@ Array.prototype.splitIntoSubArrays = function() {
     arrayElement.split(""));
 }
 
-Array.prototype.handleStrikes = function() {
+Array.prototype.handleStrikeCharacters = function() {
   return this.map(subArray => subArray
     .map(char => 
          char == "/" ? char 
@@ -33,7 +33,7 @@ Array.prototype.handleStrikes = function() {
          : char));
 }
 
-Array.prototype.handleSpares = function() {
+Array.prototype.handleSpareCharacters = function() {
   for (var i = 0; i < this.length; i++) {
     this[i][1] == "/" ? this[i][1] = 10 - Number(this[i][0]) : this[i][1];
   } 
@@ -49,16 +49,16 @@ Array.prototype.convertCharsToIntsInArray = function() {
 Array.prototype.handleSpecialCharacterScoring = function() {
   for (var i = 0; i < this.length-2; i++) {
     if (this[i][0] === 10) {
-      this[i+1][0] === 10 ?
-      this[i][0] += this[i+1][0] + this[i+2][0]:
-      this[i][0] += this[i+1][0] + this[i+1][1]; 
+        this[i+1][0] === 10 ?
+                  this[i][0] += this[i+1][0] + this[i+2][0]
+                  :this[i][0] += this[i+1][0] + this[i+1][1]; 
     }
     else if (this[i].reduce((a,b)=>a+b) === 10) {
       this[i][1] += this[i+1][0];
     }
   }
   return this;
-  }
+}
 
 Array.prototype.sumSubArrays = function() {
   return this.map(subArray => subArray.reduce((a, b) => a + b));
