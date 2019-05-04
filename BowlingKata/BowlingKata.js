@@ -1,11 +1,10 @@
 exports.ScoreCalculator = scoreboard => {
-  
-    return scoreboard
+  return scoreboard
     .replaceDoublePipeWithSingle()
     .replaceHyphensWithZeros()
     .split("|")
     .convertCharsToIntsInArray()
-    .handleSpareCharacters()
+    .handleSpecialCharacters()
     .map(subArray => subArray.reduce((a,b)=> a+b))
     .reduce((a, b) => a + b);
 };
@@ -27,7 +26,7 @@ Array.prototype.convertCharsToIntsInArray = function() {
       Number(char)));
 };
 
-Array.prototype.handleSpareCharacters = function() {
+Array.prototype.handleSpecialCharacters = function() {
   for (var i = 0; i < this.length; i++) {
     if (this[i][0] === 10) {
       this[i][0] += this[i+1][0] + this[i+1][1]; 
@@ -39,6 +38,3 @@ Array.prototype.handleSpareCharacters = function() {
   return this;
   }
 
-// function isSpare() {
-//   return self.rolls[frameIndex] + self.rolls[frameIndex + 1] === 10;
-// }
