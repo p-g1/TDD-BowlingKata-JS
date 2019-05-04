@@ -3,6 +3,9 @@ exports.ScoreCalculator = scoreboard => {
     .replaceDoublePipeWithSingle()
     .replaceHyphensWithZeros()
     .split("|")
+    .splitIntoSubArrays()
+    .handleStrikes()
+    .handleSpares()
     .convertCharsToIntsInArray()
     .handleSpecialCharacterScoring()
     .sumSubArrays()
@@ -17,18 +20,30 @@ String.prototype.replaceHyphensWithZeros = function() {
   return this.replace(/\-/g, "0");
 };
 
-Array.prototype.convertCharsToIntsInArray = function() {
-  var temp = this.map(arrayElement =>
-                      arrayElement.split("")
-                                  .map(char => 
-                                       char == "/" ? char 
-                                       : char == "X" ? 10 
-                                       : Number(char)));
-    
-  for (var i = 0; i < temp.length; i++) {
-    temp[i][1] == "/" ? temp[i][1] = 10 - Number(temp[i][0]) : temp[i][1] = Number(temp[i][1]);
+Array.prototype.splitIntoSubArrays = function() {
+  return this.map(arrayElement =>
+    arrayElement.split(""));
+}
+
+Array.prototype.handleStrikes = function() {
+  return this.map(subArray => subArray
+    .map(char => 
+         char == "/" ? char 
+         : char == "X" ? 10 
+         : char));
+}
+
+Array.prototype.handleSpares = function() {
+  for (var i = 0; i < this.length; i++) {
+    this[i][1] == "/" ? this[i][1] = 10 - Number(this[i][0]) : this[i][1];
   } 
-  return temp;
+  return this;
+}
+
+Array.prototype.convertCharsToIntsInArray = function() {
+    return this.map(subArray => subArray
+      .map(char => 
+        Number(char)));
 };
 
 Array.prototype.handleSpecialCharacterScoring = function() {
