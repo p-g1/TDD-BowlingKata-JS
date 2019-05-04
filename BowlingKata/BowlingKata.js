@@ -18,11 +18,14 @@ String.prototype.replaceHyphensWithZeros = function() {
 };
 
 Array.prototype.convertCharsToIntsInArray = function() {
-  var temp = this.map(arrayElement => arrayElement.split(""));
+  var temp = this.map(arrayElement =>
+                      arrayElement.split("")
+                                  .map(char => 
+                                       char == "/" ? char 
+                                       : char == "X" ? 10 
+                                       : Number(char)));
     
   for (var i = 0; i < temp.length; i++) {
-    temp[i][0] == "X" ? temp[i][0] = 10 : temp[i][0] = Number(temp[i][0]);
-    temp[i][1] == "X" ? temp[i][1] = 10 : 
     temp[i][1] == "/" ? temp[i][1] = 10 - Number(temp[i][0]) : temp[i][1] = Number(temp[i][1]);
   } 
   return temp;
@@ -43,7 +46,7 @@ Array.prototype.handleSpecialCharacterScoring = function() {
   }
 
 Array.prototype.sumSubArrays = function() {
-  return this.map(subArray => subArray.reduce((a,b)=> a+b));
+  return this.map(subArray => subArray.reduce((a, b) => a + b));
 }
 
 Array.prototype.Add = function() {
