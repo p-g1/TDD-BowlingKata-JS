@@ -4,9 +4,9 @@ exports.ScoreCalculator = scoreboard => {
     .replaceHyphensWithZeros()
     .split("|")
     .convertCharsToIntsInArray()
-    .handleSpecialCharacters()
-    .map(subArray => subArray.reduce((a,b)=> a+b))
-    .reduce((a, b) => a + b);
+    .handleSpecialCharacterScoring()
+    .sumSubArrays()
+    .Add();
 };
 
 String.prototype.replaceDoublePipeWithSingle = function() {
@@ -18,17 +18,18 @@ String.prototype.replaceHyphensWithZeros = function() {
 };
 
 Array.prototype.convertCharsToIntsInArray = function() {
-  var temp = this.map(arrayElement => arrayElement
-    .split(""));
-    for (var i = 0; i < temp.length; i++) {
-      temp[i][0] == "X" ? temp[i][0] = 10 : temp[i][0] = Number(temp[i][0]);
-      temp[i][1] == "/" ? temp[i][1] = 10 - Number(temp[i][0]) : temp[i][1] = Number(temp[i][1]);
-    } 
-      return temp;
+  var temp = this.map(arrayElement => arrayElement.split(""));
+    
+  for (var i = 0; i < temp.length; i++) {
+    temp[i][0] == "X" ? temp[i][0] = 10 : temp[i][0] = Number(temp[i][0]);
+    temp[i][1] == "X" ? temp[i][1] = 10 : 
+    temp[i][1] == "/" ? temp[i][1] = 10 - Number(temp[i][0]) : temp[i][1] = Number(temp[i][1]);
+  } 
+  return temp;
 };
 
-Array.prototype.handleSpecialCharacters = function() {
-  for (var i = 0; i < this.length; i++) {
+Array.prototype.handleSpecialCharacterScoring = function() {
+  for (var i = 0; i < this.length-2; i++) {
     if (this[i][0] === 10) {
       this[i+1][0] === 10 ?
       this[i][0] += this[i+1][0] + this[i+2][0]:
@@ -41,3 +42,10 @@ Array.prototype.handleSpecialCharacters = function() {
   return this;
   }
 
+Array.prototype.sumSubArrays = function() {
+  return this.map(subArray => subArray.reduce((a,b)=> a+b));
+}
+
+Array.prototype.Add = function() {
+  return this.reduce((a, b) => a + b);
+}
