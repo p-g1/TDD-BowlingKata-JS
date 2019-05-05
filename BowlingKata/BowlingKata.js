@@ -8,7 +8,7 @@ exports.ScoreCalculator = scoreboard => {
     .convertCharsToIntsInArray()
     .handleSpecialCharacterScoring()
     .sumSubArrays()
-    .Add();
+    .add();
 };
 
 String.prototype.replaceDoublePipeWithSingle = function() {
@@ -60,6 +60,6 @@ Array.prototype.sumSubArrays = function() {
   return this.map(subArray => subArray.reduce((a, b) => a + b));
 }
 
-Array.prototype.Add = function() {
+Array.prototype.add = function() {
   return this.reduce((a, b) => a + b);
 }
