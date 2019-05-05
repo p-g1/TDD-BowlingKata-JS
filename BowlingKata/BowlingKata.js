@@ -2,8 +2,7 @@ exports.ScoreCalculator = scoreboard => {
   return scoreboard
     .replaceDoublePipeWithSingle()
     .replaceHyphensWithZeros()
-    .split("|")
-    .splitIntoSubArrays()
+    .splitInto2DArray()
     .handleStrikeCharacters()
     .handleSpareCharacters()
     .convertCharsToIntsInArray()
@@ -20,9 +19,8 @@ String.prototype.replaceHyphensWithZeros = function() {
   return this.replace(/\-/g, "0");
 };
 
-Array.prototype.splitIntoSubArrays = function() {
-  return this.map(arrayElement =>
-    arrayElement.split(""));
+String.prototype.splitInto2DArray = function() {
+  return this.split("|").map(arrayElement => arrayElement.split(""));
 }
 
 Array.prototype.handleStrikeCharacters = function() {
@@ -41,9 +39,7 @@ Array.prototype.handleSpareCharacters = function() {
 }
 
 Array.prototype.convertCharsToIntsInArray = function() {
-    return this.map(subArray => subArray
-      .map(char => 
-        Number(char)));
+    return this.map(subArray => subArray.map(char => Number(char)));
 };
 
 Array.prototype.handleSpecialCharacterScoring = function() {
