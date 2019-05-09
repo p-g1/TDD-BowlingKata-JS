@@ -21,73 +21,59 @@ String.prototype.replaceHyphensWithZeros = function() {
 
 String.prototype.splitIntoThrowsInFrames2DArray = function() {
   return this.split("|").map(frame => frame.split(""));
-}
+};
 
 Array.prototype.handleStrikes = function() {
-  return this.map(throwsInFrame => throwsInFrame
-    .map(ball => 
-         ball.isSpare() 
-         ? ball 
-         : ball.isStrike()
-         ? 10 
-         : ball
-         ));
-}
+  return this.map(throwsInFrame =>
+    throwsInFrame.map(ball =>
+      ball.isSpare() ? ball : ball.isStrike() ? 10 : ball
+    )
+  );
+};
 
 Array.prototype.handleSpares = function() {
-  let frames = this, frameThrow1, frameThrow2;
+  let frames = this;
   for (var frameIndex = 0; frameIndex < frames.length; frameIndex++) {
-     frameThrow1 = frames[frameIndex][0];
-     frameThrow2 = frames[frameIndex][1];
-    
-    if (frameThrow2 == "/") {
-      
-      frameThrow2 = (10 - Number(frameThrow1));
-      console.log(frames[frameIndex][1], frameThrow2);
-    }
-    
-  } 
-  console.log(frames);
+    frames[frameIndex][0] = Number(frames[frameIndex][0]);
+    frames[frameIndex][1] == "/"
+      ? (frames[frameIndex][1] = 10 - frames[frameIndex][0])
+      : (frames[frameIndex][1] = Number(frames[frameIndex][1]));
+  }
   return frames;
-}
+};
 
 Array.prototype.convertCharsToIntsInArray = function() {
-    return this.map(throwsInFrame => throwsInFrame.map(ball => Number(ball)));
+  return this.map(throwsInFrame => throwsInFrame.map(ball => Number(ball)));
 };
 
 Array.prototype.handleSpecialCharacterScoring = function() {
   let frames = this;
-  for (var frameIndex = 0; frameIndex < frames.length-2; frameIndex++) {
-    let frameThrow1 = frames[frameIndex][0];
-    let frameThrow2 = frames[frameIndex][1];
-    let nextFrameThrow1 = frames[frameIndex+1][0];
-    let nextFrameThrow2 = frames[frameIndex+1][1];
-    let nextFramePlusOneThrow1 = frames[frameIndex+2][0];
-
-    if (frameThrow1 === 10) {
-      nextFrameThrow1 === 10 
-      ? frames[frameIndex][0] += frames[frameIndex+1][0] + frames[frameIndex+2][0]
-      : frames[frameIndex][0] += frames[frameIndex+1][0] + frames[frameIndex+1][1]; 
-    }
-    else if (frames[frameIndex].reduce((a,b)=>a+b) === 10) {
-      frameThrow2 += nextFrameThrow1;
+  for (var frameIndex = 0; frameIndex < frames.length - 2; frameIndex++) {
+    if (frames[frameIndex][0] === 10) {
+      frames[frameIndex + 1][0] === 10
+        ? (frames[frameIndex][0] +=
+            frames[frameIndex + 1][0] + frames[frameIndex + 2][0])
+        : (frames[frameIndex][0] +=
+            frames[frameIndex + 1][0] + frames[frameIndex + 1][1]);
+    } else if (frames[frameIndex].reduce((a, b) => a + b) === 10) {
+      frames[frameIndex][1] += frames[frameIndex + 1][0];
     }
   }
   return this;
-}
+};
 
 Array.prototype.sumThrowsInFrame = function() {
   return this.map(throwsInFrame => throwsInFrame.reduce((a, b) => a + b));
-}
+};
 
 Array.prototype.sumAllFrames = function() {
   return this.reduce((a, b) => a + b);
-}
+};
 
 String.prototype.isSpare = function() {
   return this == "/";
-}
+};
 
 String.prototype.isStrike = function() {
   return this == "X";
-}
+};
