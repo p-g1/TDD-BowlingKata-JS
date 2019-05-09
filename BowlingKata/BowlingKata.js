@@ -34,10 +34,9 @@ Array.prototype.handleStrikes = function() {
 Array.prototype.handleSpares = function() {
   let frames = this;
   for (var frameIndex = 0; frameIndex < frames.length; frameIndex++) {
-    frames[frameIndex][0] = Number(frames[frameIndex][0]);
-    frames[frameIndex][1] == "/"
-      ? (frames[frameIndex][1] = 10 - frames[frameIndex][0])
-      : (frames[frameIndex][1] = Number(frames[frameIndex][1]));
+    frames[frameIndex][1].toString().isSpare()
+      ? (frames[frameIndex][1] = 10 - Number(frames[frameIndex][0]))
+      : frames[frameIndex][1];
   }
   return frames;
 };
